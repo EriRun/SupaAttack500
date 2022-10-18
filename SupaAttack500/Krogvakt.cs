@@ -2,8 +2,8 @@
 {
     public class Krogvakt : Monster
     {
-        public Krogvakt(string name, int level, int rewardExperience, int healthPoints, int attackDamage, int rewardGold) { this.Name = "Krogvakt"; this.Level = 1; this.RewardExperience = 34; 
-            this.HealthPoints = 50; this.AttackDamage = 9; this.RewardGold = 13; }
+        public Krogvakt(string name, int level, int rewardExperience, int healthPoints, int attackDamage, int rewardGold) { Name = name; Level = level; 
+        RewardExperience = rewardExperience; HealthPoints = healthPoints; AttackDamage = attackDamage; RewardGold = rewardGold; }
         public int Level { get; set; }
         public int RewardExperience { get; set; }
         public int RewardGold { get; set; }

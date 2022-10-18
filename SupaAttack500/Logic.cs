@@ -36,6 +36,7 @@
                         break;
                 }
             }
+            
         }
         public static void GameRound(Player player)
         {
@@ -60,15 +61,16 @@
             {
                 Console.Clear();
                 Visuals.DisplayStats(player);
-                Console.WriteLine("You tried to enter the bar, the police outside won't let you in! \n" +
-                    "You start a fight!");
+                Combat.PolisFight(player);
+//                Console.WriteLine("You tried to enter the bar, the police outside won't let you in! \n" +
+//                    "You start a fight!");
             }
         }
         public static void Game()
         {
             Console.SetWindowSize(130, 40);
             Console.SetBufferSize(130, 40);
-            Player player = new Player("", 1, 0, 50, 14, 0);
+            Player player = new Player("", 1, 0, 100, 14, 0);
             Menu(player);
         }
     }
