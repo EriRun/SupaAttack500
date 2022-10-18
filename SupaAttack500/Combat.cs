@@ -47,6 +47,11 @@ namespace SupaAttack500
                 Console.WriteLine($"You now have {player.Gold} gold! Stop by the store and make some lucrative trades!");
                 Console.ReadLine();
             }
+            if (player.ExperiencePoints > 100)
+            {
+                player.Level++;
+                player.ExperiencePoints = 0;
+            }
         }
     }
 }
