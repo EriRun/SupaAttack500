@@ -17,6 +17,7 @@ namespace SupaAttack500
             items.Add(new Item("Jäger-Vodka", 150, 500, "Strength"));
             items.Add(new Item("Suröl", 7, 75, "Strength"));
             items.Add(new Item("Moscow Mule", 5, 25, "Toughness"));
+            items.Add(new Item("Hot n' Sweet", 1000, 1, "Strength"));
 
             bool shopping = true;
             while (shopping)
@@ -53,6 +54,11 @@ namespace SupaAttack500
                     case ConsoleKey.NumPad4:
                         player.Toughness += 7;
                         player.Gold -= 25;
+                        break;
+                    case ConsoleKey.D5:
+                    case ConsoleKey.NumPad5:
+                        player.Strength += 1000;
+                        player.Gold -= 1;
                         break;
                     case ConsoleKey.Escape:
                         shopping = false;

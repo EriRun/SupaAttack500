@@ -10,6 +10,7 @@
             Console.WriteLine(player.Name);
             while (MenuActive)
             {
+                if (player.Level == 10) { Console.WriteLine("You won!"); Environment.Exit(0); }
                 Visuals.MenuOptions();
                 Visuals.DisplayStats(player);
                 switch (Console.ReadKey().Key)

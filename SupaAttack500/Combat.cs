@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SupaAttack500
 {
@@ -19,8 +21,8 @@ namespace SupaAttack500
                 } else
                 {
                     Console.WriteLine($"You enter the bar, A wild {krogvakt.Name} charges you! D:\n" +
-                $"You take {krogvakt.AttackDamage} Damage");
-                    player.HealthPoints -= krogvakt.AttackDamage; 
+                $"You take {krogvakt.AttackDamage - player.Toughness} Damage");
+                    if (player.Toughness < krogvakt.AttackDamage) { player.HealthPoints -= krogvakt.AttackDamage - player.Toughness; } else { player.HealthPoints -= 0; };
                     Console.WriteLine($"You have {player.HealthPoints} Health left, Press any key to fight back!");
                     Console.ReadLine(); 
                     Console.WriteLine($"You hit the {krogvakt.Name} with a bottle! He takes {player.AttackDamage + player.Strength} damage!");
@@ -60,7 +62,7 @@ namespace SupaAttack500
         }
         public static void PolisFight(Player player)
         {
-            Polis polis = new Polis("Polis", player.Level, 54 + (player.Level * 4), (34 + (player.Level * 3)), 22, (18 + (player.Level*2)));
+            Polis polis = new Polis("Polis", 1, 54 + (player.Level * 4), (34 + (player.Level * 3)), 22, (18 + (player.Level*2)));
             while (true)
             {
             Random random = new Random();
@@ -73,8 +75,9 @@ namespace SupaAttack500
                 else
                 {
                     Console.WriteLine($"You enter the bar, A wild {polis.Name} charges you! D:\n" +
-                $"You take {polis.AttackDamage} Damage");
-                    player.HealthPoints -= polis.AttackDamage;
+                $"You take {polis.AttackDamage - player.Toughness} Damage");
+                    if (player.Toughness < polis.AttackDamage) { player.HealthPoints -= polis.AttackDamage - player.Toughness; } else { player.HealthPoints -= 0; };
+                    //player.HealthPoints -= polis.AttackDamage - player.Toughness;
                     Console.WriteLine($"You have {player.HealthPoints} Health left, Press any key to fight back!");
                     Console.ReadLine();
                     Console.WriteLine($"You hit the {polis.Name} with a bottle! He takes {player.AttackDamage + player.Strength} damage!");
