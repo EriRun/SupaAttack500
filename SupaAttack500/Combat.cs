@@ -11,7 +11,7 @@ namespace SupaAttack500
     {
         public static void KrogvaktFight(Player player)
         {
-            Krogvakt krogvakt = new Krogvakt("Krogvakt", 1, 34, 50, 9, 13);
+            Krogvakt krogvakt = new Krogvakt("Krogvakt", 1, 34, 50, 9, (19 + (player.Level*2)));
             while (true)
             {
             if (player.HealthPoints <= 0 || krogvakt.HealthPoints <= 0) {
@@ -20,11 +20,11 @@ namespace SupaAttack500
                 {
                     Console.WriteLine($"You enter the bar, A wild {krogvakt.Name} charges you! D:\n" +
                 $"You take {krogvakt.AttackDamage} Damage");
-                    player.HealthPoints -= krogvakt.AttackDamage;
+                    player.HealthPoints -= krogvakt.AttackDamage; 
                     Console.WriteLine($"You have {player.HealthPoints} Health left, Press any key to fight back!");
                     Console.ReadLine(); 
-                    Console.WriteLine($"You hit the {krogvakt.Name} with a bottle! He takes {player.AttackDamage} damage!");
-                    krogvakt.HealthPoints -= player.AttackDamage;
+                    Console.WriteLine($"You hit the {krogvakt.Name} with a bottle! He takes {player.AttackDamage + player.Strength} damage!");
+                    krogvakt.HealthPoints -= (player.AttackDamage + player.Strength);
                     Console.WriteLine($"{krogvakt.Name} has {krogvakt.HealthPoints} left!");
                     Console.Write("Press any key to Continue.");
                     Console.ReadLine();
@@ -60,9 +60,12 @@ namespace SupaAttack500
         }
         public static void PolisFight(Player player)
         {
-            Polis polis = new Polis("Polis", player.Level, (54 + (player.Level * 4)), (34 + (player.Level * 3)), (6 + (player.Level*2)), (18 + (player.Level*2)));
+            Polis polis = new Polis("Polis", player.Level, 54 + (player.Level * 4), (34 + (player.Level * 3)), 22, (18 + (player.Level*2)));
             while (true)
             {
+            Random random = new Random();
+                int rnd = random.Next(1, 22) + (player.Level * 2);
+                polis.AttackDamage = rnd;
                 if (player.HealthPoints <= 0 || polis.HealthPoints <= 0)
                 {
                     break;
@@ -74,8 +77,8 @@ namespace SupaAttack500
                     player.HealthPoints -= polis.AttackDamage;
                     Console.WriteLine($"You have {player.HealthPoints} Health left, Press any key to fight back!");
                     Console.ReadLine();
-                    Console.WriteLine($"You hit the {polis.Name} with a bottle! He takes {player.AttackDamage} damage!");
-                    polis.HealthPoints -= player.AttackDamage;
+                    Console.WriteLine($"You hit the {polis.Name} with a bottle! He takes {player.AttackDamage + player.Strength} damage!");
+                    polis.HealthPoints -= (player.AttackDamage + player.Strength);
                     Console.WriteLine($"{polis.Name} has {polis.HealthPoints} left!");
                     Console.Write("Press any key to Continue.");
                     Console.ReadLine();

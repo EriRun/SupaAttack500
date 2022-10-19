@@ -70,7 +70,7 @@
         {
             Console.SetWindowSize(130, 40);
             Console.SetBufferSize(130, 40);
-            Player player = new Player("", 1, 0, 100, 14, 0);
+            Player player = new Player("", 1, 0, 100, 14, 0, 0, 0);
             Menu(player);
         }
     }
