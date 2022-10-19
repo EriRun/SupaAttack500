@@ -22,6 +22,7 @@ namespace SupaAttack500
             bool shopping = true;
             while (shopping)
             {
+                Visuals.DisplayStats(player);
             foreach (var item in items)
             {
                 Console.Write($"Item: {item.Name}\n"); Console.Write($"Effect: {item.Effect} {item.EffectDescription} \n"); Console.Write($"Costs: {item.Cost}\n");
@@ -44,19 +45,31 @@ namespace SupaAttack500
                     Visuals.DisplayStats(player);
                         }
                         break;
+                    case ConsoleKey.D2:
+                    case ConsoleKey.NumPad2:
+                        Console.Clear();
+                        Visuals.DisplayStats(player);
+                        player.Strength += 150;
+                        player.Gold -= 500;
+                        break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
+                        Console.Clear();
+                        Visuals.DisplayStats(player);
                         player.Strength += 7;
                         player.Gold -= 75;
-                        Visuals.DisplayStats(player);
                         break;
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
+                        Console.Clear();
+                        Visuals.DisplayStats(player);
                         player.Toughness += 7;
                         player.Gold -= 25;
                         break;
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:
+                        Console.Clear();
+                        Visuals.DisplayStats(player);
                         player.Strength += 1000;
                         player.Gold -= 1;
                         break;
@@ -65,6 +78,8 @@ namespace SupaAttack500
                         Console.Clear();
                         break;
                 default:
+                        Console.Clear();
+                        Visuals.DisplayStats(player);
                     break;
             }
             }

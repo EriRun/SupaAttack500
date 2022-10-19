@@ -1,18 +1,25 @@
 ﻿namespace SupaAttack500
 {
     public class Logic
+
     {
         public static void Menu(Player player)
         {
             Console.WriteLine("Please enter your name:");
             player.Name = Console.ReadLine();
             bool MenuActive = true;
-            Console.WriteLine(player.Name);
+            int level = player.Level;
+            int gold = player.Gold;
+            int healthPoints = player.HealthPoints;
+            int attackDamage = player.AttackDamage;
+            int strength = player.Strength;
+            int toughness = player.Toughness;
             while (MenuActive)
             {
                 if (player.Level == 10) { Console.WriteLine("You won!"); Environment.Exit(0); }
-                Visuals.MenuOptions();
+                Console.Clear();
                 Visuals.DisplayStats(player);
+                Visuals.MenuOptions();
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.D1:
@@ -21,9 +28,11 @@
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
+                        Program.jsonconfig.LoadScore(player);
                         break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
+                        Program.jsonconfig.HiScore(level, gold, player);
                         break;
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
@@ -34,6 +43,7 @@
                         Environment.Exit(0);
                         break;
                     default:
+
                         break;
                 }
             }
@@ -69,6 +79,7 @@
         }
         public static void Game()
         {
+            Console.Title = "SupaAttack500!";
             Console.SetWindowSize(130, 40);
             Console.SetBufferSize(130, 40);
             Player player = new Player("", 1, 0, 100, 14, 0, 0, 0);

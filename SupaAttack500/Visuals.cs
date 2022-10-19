@@ -24,7 +24,7 @@ namespace SupaAttack500
             Console.SetCursorPosition(7, 9); Console.WriteLine("|   Press 1 to Start Game   |         |   Press 2 to Load Game    |         |  Press 3 to Save Game     |");
             Console.SetCursorPosition(7, 10); Console.WriteLine("*---------------------------*         *---------------------------*         *---------------------------*");
             Console.SetCursorPosition(20, 13); Console.WriteLine("*---------------------------*                *---------------------------*");
-            Console.SetCursorPosition(20, 14); Console.WriteLine("|   Press 4 to Go To Shop       |                |   Press 5 to Exit Game    | ");
+            Console.SetCursorPosition(20, 14); Console.WriteLine("|   Press 4 to Go To Shop   |                |   Press 5 to Exit Game    | ");
             Console.SetCursorPosition(20, 15); Console.WriteLine("*---------------------------*                *---------------------------*");
         }
     }
