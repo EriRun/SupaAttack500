@@ -17,9 +17,10 @@
             while (MenuActive)
             {
                 if (player.Level == 10) {
-                    Console.Clear();
+                    /*Console.Clear();
                     Visuals.DrawLogo();
-                    Console.WriteLine("Congratulations! You reached level 10! You won!"); Environment.Exit(0); 
+                    Console.WriteLine("Congratulations! You reached level 10! You won!"); Environment.Exit(0); */
+                    Visuals.WinScreen(player);
                 }
                 Console.Clear();
                 Visuals.DisplayStats(player);

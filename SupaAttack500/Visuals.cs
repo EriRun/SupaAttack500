@@ -1,4 +1,6 @@
-﻿using System.Security.Principal;
+﻿using System.Reflection.Emit;
+using System.Security.Principal;
+using System.Xml.Linq;
 
 namespace SupaAttack500
 {
@@ -43,6 +45,61 @@ namespace SupaAttack500
             }
 
             return null;
+        }
+        public static void WinScreen(Player player)
+        {
+            Console.Clear();
+            DrawLogo();
+            string[] thanks = new string[]
+            {
+                "   ____             _      __________             __      ", "  / __/__  ___ ____(_)__ _/ /_  __/ /  ___ ____  / /__ ___",
+                " _\\ \\/ _ \\/ -_) __/ / _ `/ / / / / _ \\/ _ `/ _ \\/  '_/(_-<", "/___/ .__/\\__/\\__/_/\\_,_/_/ /_/ /_//_/\\_,_/_//_/_/\\_\\/___/",
+                "   /_/                                                                                                            "
+            };
+            for (int i = 0; i < thanks.Length; i++)
+            {
+                Console.SetCursorPosition(Console.WindowWidth/4,i+7); Console.WriteLine($"{thanks[i]}");
+            }
+            string[] credits = new string[]
+            {
+                "Lead Producer\t|\tEric Rundqvist", "Publisher\t|\tEric Rundqvist", "Founder\t|\tEric Rundqvist","Concept Builder|\tEric Rundqvist", 
+                "Concept Manager|\tMarcus Medina","\t   Progamming Team", 
+                "Lead Programmer|\tEric Rundqvist", "Programmer 1\t|\tEric Rundqvist", "Programmer 2\t|\tEric Rundqvist", "Programmer 3\t|\tEric Rundqvist", 
+                "\t   Design Team", "Lead Designer\t|\tEric Rundqvist", "Animation Designer\t|\tEric Rundqvist",
+                "GUI Designer\t|\tEric Rundqvist", "Designer 1\t|\tEric Rundqvist", "Designer 2\t|\tEric Rundqvist","Designer 3\t|\tEric Rundqvist",
+                "\t      Player", $"Player\t\t|\t{player.Name}", "Hotel\t\t|\tTrivago"
+            };
+            for (int i = 0; i < credits.Length; i++)
+            {
+                Console.SetCursorPosition(Console.WindowWidth / 4+9, i + 13); Console.WriteLine(credits[i]);
+                Thread.Sleep(100);
+            }
+            Console.SetCursorPosition(90, 38); Console.WriteLine("Inspiration and ideas: Tehpson && Gatreh");
+            Console.SetCursorPosition(0, 36); Console.WriteLine("Congratulations! You reached level 10! You won!");
+            Console.WriteLine("Would you like to save your score?");
+            Console.WriteLine("Press Y = Save Score\tPress N = Exit Game");
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.Y:
+                    var name = player.Name;
+                    var level = player.Level;
+                    var experiencePoints = player.ExperiencePoints;
+                    var gold = player.Gold;
+                    var healthPoints = player.HealthPoints;
+                    var attackDamage = player.AttackDamage;
+                    var strength = player.Strength;
+                    var toughness = player.Toughness;
+                    name = player.Name;
+                    Program.jsonconfig.SaveScore(name, level, experiencePoints, gold, healthPoints, attackDamage, strength, toughness, player);
+                    Environment.Exit(0);
+                    break;
+                case ConsoleKey.N:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Environment.Exit(0);
+                    break;
+            }
         }
     }
 }
