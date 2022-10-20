@@ -16,7 +16,11 @@
             int toughness = player.Toughness;
             while (MenuActive)
             {
-                if (player.Level == 10) { Console.WriteLine("You won!"); Environment.Exit(0); }
+                if (player.Level == 10) {
+                    Console.Clear();
+                    Visuals.DrawLogo();
+                    Console.WriteLine("Congratulations! You reached level 10! You won!"); Environment.Exit(0); 
+                }
                 Console.Clear();
                 Visuals.DisplayStats(player);
                 Visuals.MenuOptions();

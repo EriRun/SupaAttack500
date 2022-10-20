@@ -16,6 +16,7 @@ namespace SupaAttack500
             Krogvakt krogvakt = new Krogvakt("Krogvakt", 1, 34, 50, 9, (19 + (player.Level*2)));
             while (true)
             {
+            Visuals.DisplayStats(player);
             if (player.HealthPoints <= 0 || krogvakt.HealthPoints <= 0) {
                     break;
                 } else
