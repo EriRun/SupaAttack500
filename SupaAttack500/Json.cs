@@ -35,7 +35,7 @@ namespace SupaAttack500
         /// </summary>
         /// <param name="name">Player name</param>
         /// <param name="pix">Player pix</param>
-        public void SaveScore(string name, int level,int experiencePoints, int gold, int healthPoints, int attackDamage, int strength, int toughness, Player player)
+        public void SaveScore(string name, int level, int experiencePoints, int gold, int healthPoints, int attackDamage, int strength, int toughness, Player player)
         {
             //  Importerar HiScore listan till variabel "scores"
             var scores = GetScore();
@@ -48,8 +48,17 @@ namespace SupaAttack500
             strength = player.Strength;
             toughness = player.Toughness;
             //  Lägger till score i listan
-            scores.Add(new Score() { Name = name, Level = level, ExperiencePoints = experiencePoints, Gold = gold, HealthPoints = healthPoints, 
-                AttackDamage = attackDamage, Strength = strength, Toughness = toughness });
+            scores.Add(new Score()
+            {
+                Name = name,
+                Level = level,
+                ExperiencePoints = experiencePoints,
+                Gold = gold,
+                HealthPoints = healthPoints,
+                AttackDamage = attackDamage,
+                Strength = strength,
+                Toughness = toughness
+            });
             //  Sorterar listan, högst till lägst.
             scores = scores.OrderByDescending(x => x.Level).ToList();
 
@@ -103,56 +112,154 @@ namespace SupaAttack500
         {
             if (File.Exists(Path))
             {
-                Console.Clear();
-                Visuals.DisplayStats(player);
-                var hiScoreListan = GetScore();
-                hiScoreListan = hiScoreListan.OrderByDescending(x => x.Level).ToList();
-                if (hiScoreListan.Count > 0) {
-                    while (true)
-                    {
-                        int x = 0;
-                        foreach (var score in hiScoreListan)
-                        {
-                            x++;
-                            Console.WriteLine("-------------------------------------------------------------");
-                            Console.WriteLine($"{x}|Name: {score.Name}\t\tLevel: {score.Level}\tGold: {score.Gold}|");
-                            Thread.Sleep(100);
-                        }
-                        Console.WriteLine("");
-                        Console.WriteLine($"Please select a Save to Import (0 to go back to menu)");
-                        int y = 0;
-                        int.TryParse(Console.ReadLine(), out y);
-                        if (y > 0 && y <= hiScoreListan.Count)
-                        {
-                            player.Name = hiScoreListan[y - 1].Name;
-                            player.Level = hiScoreListan[y - 1].Level;
-                            player.ExperiencePoints = hiScoreListan[y - 1].ExperiencePoints;
-                            player.Gold = hiScoreListan[y - 1].Gold;
-                            player.HealthPoints = hiScoreListan[y - 1].HealthPoints;
-                            player.AttackDamage = hiScoreListan[y - 1].AttackDamage;
-                            player.Strength = hiScoreListan[y - 1].Strength;
-                            player.Toughness = hiScoreListan[y - 1].Toughness;
-
-                            Console.Clear();
-                            break;
-                        }
-                        else if (y == 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Visuals.DisplayStats(player);
-                            Console.WriteLine($"Pick a valid number!");
-                        }
-                    }
-                }else
+                int page = 1;
+                int totalPages = 1;
+                bool loadSaveMenu = true;
+                while (loadSaveMenu)
                 {
                     Console.Clear();
                     Visuals.DisplayStats(player);
-                    Console.WriteLine("There are no submitted scores!");
-                    Thread.Sleep(2000);
+                    var hiScoreListan = GetScore();
+                    hiScoreListan = hiScoreListan.OrderByDescending(x => x.Level).ToList();
+                    if (hiScoreListan.Count < 16) { totalPages = 1; }
+                    else if (hiScoreListan.Count < 31 && hiScoreListan.Count > 15) { totalPages = 2; }
+                    else if (hiScoreListan.Count < 46 && hiScoreListan.Count > 30) { totalPages = 3; }
+                    if (hiScoreListan.Count > 15)
+                    {
+                        
+                        var score = hiScoreListan;
+                        for (int i = 0+(15*(page-1)); i < page * 15; i++)
+                        {
+                            if (i > hiScoreListan.Count-1) { break; }
+                            Console.WriteLine("-------------------------------------------------------------");
+                            Console.WriteLine($"{i + 1}|Name: {score[i].Name}\t\tLevel: {score[i].Level}\tGold: {score[i].Gold}|");
+                        }
+                        Console.SetCursorPosition(0, 37); Console.WriteLine($"Page {page} / {totalPages}");
+                        Console.SetCursorPosition(0, 38); Console.WriteLine($"Press Z = Page Back\tPress X = Page Forward\t\tPress L = Load Score\tPress D = Delete Score");
+                        switch (Console.ReadKey().Key)
+                        {
+                            case ConsoleKey.Z:
+                                if (page > 1) { page--; break; }
+                                else
+                                    break;
+                            case ConsoleKey.X:
+                                if (page < totalPages) { page++; break; }
+                                break;
+                            case ConsoleKey.L:
+                                while (true)
+                                {
+                                    Console.SetCursorPosition(0, 38);  Console.WriteLine($"Please select a Save to Import (0 to go back)                                                                                    ");
+                                    int y = 0;
+                                    int.TryParse(Console.ReadLine(), out y);
+                                    if (y > 0 && y <= hiScoreListan.Count)
+                                    {
+                                        player.Name = hiScoreListan[y - 1].Name;
+                                        player.Level = hiScoreListan[y - 1].Level;
+                                        player.ExperiencePoints = hiScoreListan[y - 1].ExperiencePoints;
+                                        player.Gold = hiScoreListan[y - 1].Gold;
+                                        player.HealthPoints = hiScoreListan[y - 1].HealthPoints;
+                                        player.AttackDamage = hiScoreListan[y - 1].AttackDamage;
+                                        player.Strength = hiScoreListan[y - 1].Strength;
+                                        player.Toughness = hiScoreListan[y - 1].Toughness;
+
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else if (y == 0)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Visuals.DisplayStats(player);
+                                        Console.WriteLine($"Pick a valid number!");
+                                    }
+                                }
+                                break;
+                            case ConsoleKey.D:
+                                while (true)
+                                {
+                                    Console.SetCursorPosition(0, 38); Console.WriteLine($"Please select a Save to Delete (0 to go back)                                                                                    ");
+                                    int y = 0;
+                                    int.TryParse(Console.ReadLine(), out y);
+                                    if (y > 0 && y <= hiScoreListan.Count)
+                                    {
+                                        hiScoreListan.RemoveAt(y-1);
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else if (y == 0)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Visuals.DisplayStats(player);
+                                        Console.WriteLine($"Pick a valid number!");
+                                        break;
+                                    }
+                                }
+
+                                break;
+                            case ConsoleKey.Escape:
+                                loadSaveMenu = false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    else if (hiScoreListan.Count > 0)
+                    {
+                        while (true)
+                        {
+                            int x = 0;
+                            foreach (var score in hiScoreListan)
+                            {
+                                x++;
+                                Console.WriteLine("-------------------------------------------------------------");
+                                Console.WriteLine($"{x}|Name: {score.Name}\t\tLevel: {score.Level}\tGold: {score.Gold}|");
+                                Thread.Sleep(100);
+                            }
+                            Console.WriteLine("");
+                            Console.WriteLine($"Please select a Save to Import (0 to go back to menu)");
+                            int y = 0;
+                            int.TryParse(Console.ReadLine(), out y);
+                            if (y > 0 && y <= hiScoreListan.Count)
+                            {
+                                player.Name = hiScoreListan[y - 1].Name;
+                                player.Level = hiScoreListan[y - 1].Level;
+                                player.ExperiencePoints = hiScoreListan[y - 1].ExperiencePoints;
+                                player.Gold = hiScoreListan[y - 1].Gold;
+                                player.HealthPoints = hiScoreListan[y - 1].HealthPoints;
+                                player.AttackDamage = hiScoreListan[y - 1].AttackDamage;
+                                player.Strength = hiScoreListan[y - 1].Strength;
+                                player.Toughness = hiScoreListan[y - 1].Toughness;
+
+                                Console.Clear();
+                                break;
+                            }
+                            else if (y == 0)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Visuals.DisplayStats(player);
+                                Console.WriteLine($"Pick a valid number!");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Visuals.DisplayStats(player);
+                        Console.WriteLine("There are no submitted scores!");
+                        Thread.Sleep(2000);
+                    }
                 }
             }
         }
