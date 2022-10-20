@@ -95,7 +95,7 @@ namespace SupaAttack500
             if (player.HealthPoints <= 0)
             {
                 Console.Clear();
-                Visuals.DisplayStats(player);
+                Visuals.DrawLogo();
                 Console.WriteLine($"You have lost all of your Health Points. Game over.");
                 Thread.Sleep(2000);
                 Environment.Exit(0);
