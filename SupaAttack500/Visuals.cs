@@ -27,5 +27,22 @@ namespace SupaAttack500
             Console.SetCursorPosition(20, 14); Console.WriteLine("|   Press 4 to Go To Shop   |                |   Press 5 to Exit Game    | ");
             Console.SetCursorPosition(20, 15); Console.WriteLine("*---------------------------*                *---------------------------*");
         }
+          public static string DrawLogo()
+          {
+              string[] Logo = new string[]
+              {
+                  "______________________________________________________________________________________________", 
+                  "      __                          __                                   ____      __       __  ", "    /    )                        / |                          /      /        /    )   /    )",
+                  "----\\-----------------__----__---/__|--_/_--_/_----__----__---/-__---/___-----/----/---/----/-", "     \\     /   /    /   ) /   ) /   |  /    /    /   ) /   ' /(          )   /    /   /    /  ",
+                 "_(____/___(___(____/___/_(___(_/____|_(_ __(_ __(___(_(___ _/___\\__(____/___(____/___(____/___",
+                "                  /                                                                           ","                 /                                                                            "
+              };
+            for (int i = 0; i < Logo.Length; i++)
+            {
+                Console.SetCursorPosition(0, i); Console.WriteLine(Logo[i]);
+            }
+
+            return null;
+        }
     }
 }

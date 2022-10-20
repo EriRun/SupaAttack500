@@ -119,7 +119,7 @@ namespace SupaAttack500
                             Thread.Sleep(100);
                         }
                         Console.WriteLine("");
-                        Console.WriteLine($"Please pick a Save to Import");
+                        Console.WriteLine($"Please select a Save to Import (0 to go back to menu)");
                         int y = 0;
                         int.TryParse(Console.ReadLine(), out y);
                         if (y > 0 && y <= hiScoreListan.Count)
@@ -134,6 +134,10 @@ namespace SupaAttack500
                             player.Toughness = hiScoreListan[y - 1].Toughness;
 
                             Console.Clear();
+                            break;
+                        }
+                        else if (y == 0)
+                        {
                             break;
                         }
                         else
