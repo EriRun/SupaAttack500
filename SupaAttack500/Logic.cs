@@ -1,4 +1,5 @@
-﻿namespace SupaAttack500
+﻿using System.Media;
+namespace SupaAttack500
 {
     public class Logic
 
@@ -87,6 +88,13 @@
         }
         public static void Game()
         {
+            if (OperatingSystem.IsWindows()) { 
+            SoundPlayer soundPlayer = new SoundPlayer("Biscuit.wav");
+                //  Music source:
+                //  https://www.youtube.com/watch?v=EtZ2m2Zm3vY&ab_channel=LuKremBo
+                soundPlayer.Load();
+                soundPlayer.PlayLooping();
+            }
             Console.Title = "SupaAttack500!";
             Console.SetWindowSize(130, 40);
             Console.SetBufferSize(130, 40);

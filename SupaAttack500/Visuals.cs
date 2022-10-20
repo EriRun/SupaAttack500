@@ -67,7 +67,7 @@ namespace SupaAttack500
                 "Lead Programmer|\tEric Rundqvist", "Programmer 1\t|\tEric Rundqvist", "Programmer 2\t|\tEric Rundqvist", "Programmer 3\t|\tEric Rundqvist", 
                 "\t   Design Team", "Lead Designer\t|\tEric Rundqvist", "Animation Designer\t|\tEric Rundqvist",
                 "GUI Designer\t|\tEric Rundqvist", "Designer 1\t|\tEric Rundqvist", "Designer 2\t|\tEric Rundqvist","Designer 3\t|\tEric Rundqvist",
-                "\t      Player", $"Player\t\t|\t{player.Name}", "Hotel\t\t|\tTrivago"
+                "BGM\t\t|\tLuKremBo", "\t      Player", $"Player\t\t|\t{player.Name}", "Hotel\t\t|\tTrivago"
             };
             for (int i = 0; i < credits.Length; i++)
             {
