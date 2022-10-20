@@ -32,46 +32,75 @@ namespace SupaAttack500
             {
                 case ConsoleKey.D1:
                 case ConsoleKey.NumPad1:
-                    if (player.HealthPoints >= (100 + (player.Level * 10)))
+                        if (player.HealthPoints >= (100 + (player.Level * 10)))
                         {
                             Console.Clear();
                             Visuals.DisplayStats(player);
                             Console.WriteLine("You already have maximum health");
                             Thread.Sleep(1000);
                             break;
-                        } else {
-                    player.HealthPoints += 25;
-                    player.Gold -= 17;
-                    Visuals.DisplayStats(player);
+                        } else if (player.Gold < items[0].Cost) {
+                            Console.WriteLine("Insufficient funds, Come back later!");
+                        }
+                        else {
+                            player.HealthPoints += 25;
+                            player.Gold -= 17;
+                            Visuals.DisplayStats(player);
                         }
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
+                        if (player.Gold < items[1].Cost)
+                        {
+                            Console.WriteLine("Insufficient funds, Come back later!");
+                        } else { 
                         Console.Clear();
                         Visuals.DisplayStats(player);
                         player.Strength += 150;
                         player.Gold -= 500;
+                        }
                         break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
-                        Console.Clear();
-                        Visuals.DisplayStats(player);
-                        player.Strength += 7;
-                        player.Gold -= 75;
+                        if (player.Gold < items[2].Cost)
+                        {
+                            Console.WriteLine("Insufficient funds, Come back later!");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Visuals.DisplayStats(player);
+                            player.Strength += 7;
+                            player.Gold -= 75;
+                        }
                         break;
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
-                        Console.Clear();
-                        Visuals.DisplayStats(player);
-                        player.Toughness += 7;
-                        player.Gold -= 25;
+                        if (player.Gold < items[3].Cost)
+                        {
+                            Console.WriteLine("Insufficient funds, Come back later!");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Visuals.DisplayStats(player);
+                            player.Toughness += 7;
+                            player.Gold -= 25;
+                        }
                         break;
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:
-                        Console.Clear();
-                        Visuals.DisplayStats(player);
-                        player.Strength += 1000;
-                        player.Gold -= 1;
+                        if (player.Gold < items[4].Cost)
+                        {
+                            Console.WriteLine("Insufficient funds, Come back later!");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Visuals.DisplayStats(player);
+                            player.Strength += 1000;
+                            player.Gold -= 1;
+                        }
                         break;
                     case ConsoleKey.Escape:
                         shopping = false;
@@ -84,6 +113,7 @@ namespace SupaAttack500
             }
             }
         }
+
         internal static void ShopKeep(Player player)
         {
             ShopSeed(player);

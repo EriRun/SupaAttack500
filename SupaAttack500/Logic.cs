@@ -42,6 +42,9 @@
                     case ConsoleKey.NumPad5:
                         Environment.Exit(0);
                         break;
+                    case ConsoleKey.Tab:
+                        Cheats.Menu(player);
+                        break;
                     default:
 
                         break;

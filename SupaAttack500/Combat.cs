@@ -30,6 +30,7 @@ namespace SupaAttack500
                     Console.WriteLine($"{krogvakt.Name} has {krogvakt.HealthPoints} left!");
                     Console.Write("Press any key to Continue.");
                     Console.ReadLine();
+                    Console.Clear();
                     
                     //Visuals.DisplayStats(player);
                 }
@@ -65,6 +66,7 @@ namespace SupaAttack500
             Polis polis = new Polis("Polis", 1, 54 + (player.Level * 4), (34 + (player.Level * 3)), 22, (18 + (player.Level*2)));
             while (true)
             {
+                Visuals.DisplayStats(player);
             Random random = new Random();
                 int rnd = random.Next(1, 22) + (player.Level * 2);
                 polis.AttackDamage = rnd;
@@ -85,6 +87,7 @@ namespace SupaAttack500
                     Console.WriteLine($"{polis.Name} has {polis.HealthPoints} left!");
                     Console.Write("Press any key to Continue.");
                     Console.ReadLine();
+                    Console.Clear();
 
                     //Visuals.DisplayStats(player);
                 }
