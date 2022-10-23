@@ -43,6 +43,15 @@ namespace SupaAttack500
                             Console.WriteLine("Insufficient funds, Come back later!");
                         }
                         else {
+                            //Player.PlayerInventory.Add(new Item("Bärs", 25, 17, "Health"));
+                            var item = Player.PlayerInventory.Find(x => x.Name == "Bärs");
+                            if (item != null)
+                            {
+                                item.Quantity++;
+                            } else
+                            {
+                                Player.PlayerInventory.Add(new Item("Bärs", 25, 17, "Health", 1));
+                            }
                             player.HealthPoints += 25;
                             player.Gold -= 17;
                             Visuals.DisplayStats(player);
