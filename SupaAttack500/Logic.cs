@@ -52,7 +52,6 @@ namespace SupaAttack500
                         Cheats.Menu(player);
                         break;
                     default:
-
                         break;
                 }
             }

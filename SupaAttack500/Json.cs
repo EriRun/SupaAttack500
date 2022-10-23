@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SupaAttack500;
 using System.Net.Security;
+using System.Reflection.Emit;
 using System.Xml.Linq;
 using static SupaAttack500.Json;
 using static System.Formats.Asn1.AsnWriter;
@@ -185,7 +186,10 @@ namespace SupaAttack500
                                     int.TryParse(Console.ReadLine(), out y);
                                     if (y > 0 && y <= hiScoreListan.Count)
                                     {
-                                        hiScoreListan.RemoveAt(y-1);
+                                        hiScoreListan.RemoveAt(y - 1);
+                                        hiScoreListan = hiScoreListan.OrderByDescending(x => x.Level).ToList();
+                                        var jsonInput = JsonConvert.SerializeObject(hiScoreListan);
+                                        File.WriteAllText(Path, jsonInput);
                                         Console.Clear();
                                         break;
                                     }

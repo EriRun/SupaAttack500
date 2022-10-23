@@ -15,7 +15,7 @@ namespace SupaAttack500
             Console.SetCursorPosition((Console.WindowWidth / 6 * 2 - 10), 1); Console.Write($"Level: {player.Level.ToString()}");
            var xp = 100 * player.Level;
             Console.SetCursorPosition((Console.WindowWidth / 6 * 3), 1); Console.Write($"{player.ExperiencePoints.ToString()} / {xp} XP");
-            Console.SetCursorPosition((Console.WindowWidth/6 * 4 + 5), 1); Console.Write($"{player.HealthPoints.ToString()} HP");
+            Console.SetCursorPosition((Console.WindowWidth/6 * 4 + 5), 1); Console.Write($"{player.HealthPoints.ToString()} / {(100 + (player.Level * 10))}HP");
             Console.SetCursorPosition((Console.WindowWidth / 6 * 5 + 10), 1); Console.Write($"{player.Gold} Gold");
             Console.SetCursorPosition(0, 2); for (int i = 0; i < Console.WindowWidth; i++) { Console.Write("-"); }
         }
