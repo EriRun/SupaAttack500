@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SupaAttack500
+﻿namespace SupaAttack500
 {
     public class Polis : Monster
     {
@@ -13,6 +7,7 @@ namespace SupaAttack500
             Name = name; Level = level;
             RewardExperience = rewardExperience; HealthPoints = healthPoints; AttackDamage = attackDamage; RewardGold = rewardGold;
         }
+
         public int Level { get; set; }
         public int RewardExperience { get; set; }
         public int RewardGold { get; set; }

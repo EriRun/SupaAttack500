@@ -4,9 +4,9 @@
     {
         public static Json jsonconfig { get; set; } = new Json();
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-           Logic.Game();
+            Logic.Game();
         }
     }
 }

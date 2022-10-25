@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SupaAttack500
+﻿namespace SupaAttack500
 {
     internal class Cheats
     {
@@ -13,7 +6,6 @@ namespace SupaAttack500
         {
             //while (true)
             //{
-
             Console.Clear();
             Visuals.DisplayStats(player);
             Console.WriteLine($"Welcome, {player.Name}, to the Secret Cheat Menu!\n" +
@@ -23,11 +15,11 @@ namespace SupaAttack500
             if (i == 42069)
             {
                 player.Strength = 10000;
-            } else if (i == 1337)
-                {
-                    player.HealthPoints = 10000;
-                }
-            //}
+            }
+            else if (i == 1337)
+            {
+                player.HealthPoints = 10000;
+            }
+            }
         }
     }
-}

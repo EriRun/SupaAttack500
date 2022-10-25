@@ -1,4 +1,5 @@
 ﻿using System.Media;
+
 namespace SupaAttack500
 {
     public class Logic
@@ -17,10 +18,8 @@ namespace SupaAttack500
             int toughness = player.Toughness;
             while (MenuActive)
             {
-                if (player.Level == 10) {
-                    /*Console.Clear();
-                    Visuals.DrawLogo();
-                    Console.WriteLine("Congratulations! You reached level 10! You won!"); Environment.Exit(0); */
+                if (player.Level == 10)
+                {
                     Visuals.WinScreen(player);
                 }
                 Console.Clear();
@@ -32,35 +31,41 @@ namespace SupaAttack500
                     case ConsoleKey.NumPad1:
                         GameRound(player);
                         break;
+
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
                         Program.jsonconfig.LoadScore(player);
                         break;
+
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
                         Program.jsonconfig.HiScore(level, gold, player);
                         break;
+
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
                         Shop.ShopKeep(player);
                         break;
+
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:
                         Environment.Exit(0);
                         break;
+
                     case ConsoleKey.Tab:
                         Cheats.Menu(player);
                         break;
+
                     default:
                         break;
                 }
             }
-            
         }
+
         public static void GameRound(Player player)
         {
             Random random = new();
-            var Adventure = random.Next(0,9);
+            var Adventure = random.Next(0, 9);
             if (Adventure == 1)
             {
                 Console.Clear();
@@ -73,7 +78,7 @@ namespace SupaAttack500
                 Console.Clear();
                 Visuals.DisplayStats(player);
                 Combat.KrogvaktFight(player);
-                
+
                 Console.Clear();
             }
             else
@@ -81,14 +86,16 @@ namespace SupaAttack500
                 Console.Clear();
                 Visuals.DisplayStats(player);
                 Combat.PolisFight(player);
-//                Console.WriteLine("You tried to enter the bar, the police outside won't let you in! \n" +
-//                    "You start a fight!");
+                //                Console.WriteLine("You tried to enter the bar, the police outside won't let you in! \n" +
+                //                    "You start a fight!");
             }
         }
+
         public static void Game()
         {
-            if (OperatingSystem.IsWindows()) { 
-            SoundPlayer soundPlayer = new SoundPlayer("Biscuit.wav");
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer soundPlayer = new SoundPlayer("Biscuit.wav");
                 //  Music source:
                 //  https://www.youtube.com/watch?v=EtZ2m2Zm3vY&ab_channel=LuKremBo
                 soundPlayer.Load();

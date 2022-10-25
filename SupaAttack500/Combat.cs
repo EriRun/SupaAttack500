@@ -1,39 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace SupaAttack500
+﻿namespace SupaAttack500
 {
     internal class Combat
     {
         public static void KrogvaktFight(Player player)
         {
-            Krogvakt krogvakt = new Krogvakt("Krogvakt", 1, 34, 50, 9, (19 + (player.Level*2)));
+            Krogvakt krogvakt = new Krogvakt("Krogvakt", 1, 34, 50, 9, (19 + (player.Level * 2)));
             while (true)
             {
-            Visuals.DisplayStats(player);
-            if (player.HealthPoints <= 0 || krogvakt.HealthPoints <= 0) {
+                Visuals.DisplayStats(player);
+                if (player.HealthPoints <= 0 || krogvakt.HealthPoints <= 0)
+                {
                     break;
-                } else
+                }
+                else
                 {
                     Console.WriteLine($"You enter the bar, A wild {krogvakt.Name} charges you! D:\n" +
                 $"You take {krogvakt.AttackDamage - player.Toughness} Damage");
                     if (player.Toughness < krogvakt.AttackDamage) { player.HealthPoints -= krogvakt.AttackDamage - player.Toughness; } else { player.HealthPoints -= 0; };
                     Console.WriteLine($"You have {player.HealthPoints} Health left, Press any key to fight back!");
-                    Console.ReadLine(); 
+                    Console.ReadLine();
                     Console.WriteLine($"You hit the {krogvakt.Name} with a bottle! He takes {player.AttackDamage + player.Strength} damage!");
                     krogvakt.HealthPoints -= (player.AttackDamage + player.Strength);
                     Console.WriteLine($"{krogvakt.Name} has {krogvakt.HealthPoints} left!");
                     Console.Write("Press any key to Continue.");
                     Console.ReadLine();
                     Console.Clear();
-                    
-                    //Visuals.DisplayStats(player);
                 }
             }
             if (player.HealthPoints <= 0)
@@ -43,7 +34,8 @@ namespace SupaAttack500
                 Console.WriteLine($"You have lost all of your Health Points. Game over.");
                 Thread.Sleep(2000);
                 Environment.Exit(0);
-            } else if (krogvakt.HealthPoints <= 0)
+            }
+            else if (krogvakt.HealthPoints <= 0)
             {
                 Console.Clear();
                 Visuals.DisplayStats(player);
@@ -59,16 +51,17 @@ namespace SupaAttack500
             {
                 player.Level++;
                 player.ExperiencePoints = 0;
-                player.HealthPoints = 100 + (player.Level * 10);
+                if (player.HealthPoints <= 100 + (player.Level * 10)) { player.HealthPoints = 100 + (player.Level * 10); }
             }
         }
+
         public static void PolisFight(Player player)
         {
-            Polis polis = new Polis("Polis", 1, 54 + (player.Level * 4), (34 + (player.Level * 3)), 22, (18 + (player.Level*2)));
+            Polis polis = new Polis("Polis", 1, 54 + (player.Level * 4), (34 + (player.Level * 3)), 22, (18 + (player.Level * 2)));
             while (true)
             {
                 Visuals.DisplayStats(player);
-            Random random = new Random();
+                Random random = new Random();
                 int rnd = random.Next(1, 22) + (player.Level * 2);
                 polis.AttackDamage = rnd;
                 if (player.HealthPoints <= 0 || polis.HealthPoints <= 0)
@@ -117,8 +110,12 @@ namespace SupaAttack500
             {
                 player.Level++;
                 player.ExperiencePoints = 0;
-                player.HealthPoints = 100 + (player.Level * 10);
+                if (player.HealthPoints <= 100 + (player.Level * 10)) { player.HealthPoints = 100 + (player.Level * 10); }
             }
+        }
+        public static void Battle()
+        {
+
         }
     }
 }

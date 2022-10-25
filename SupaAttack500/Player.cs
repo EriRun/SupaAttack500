@@ -3,9 +3,13 @@
     public class Player
     {
         public static List<Item> PlayerInventory { get; set; } = new List<Item>();
-        public Player(string name, int level, int experiencePoints, int healthPoints, int attackDamage, int gold, int strength, int toughness) { Name = name; Level = level;
-            ExperiencePoints = experiencePoints; HealthPoints = healthPoints; AttackDamage = attackDamage; Gold = gold; Strength = strength; Toughness = toughness; 
+
+        public Player(string name, int level, int experiencePoints, int healthPoints, int attackDamage, int gold, int strength, int toughness)
+        {
+            Name = name; Level = level;
+            ExperiencePoints = experiencePoints; HealthPoints = healthPoints; AttackDamage = attackDamage; Gold = gold; Strength = strength; Toughness = toughness;
         }
+
         public string Name { get; set; }
         public int Level { get; set; }
         public int ExperiencePoints { get; set; }

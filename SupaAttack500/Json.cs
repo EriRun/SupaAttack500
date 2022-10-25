@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SupaAttack500;
-using System.Net.Security;
-using System.Reflection.Emit;
-using System.Xml.Linq;
-using static SupaAttack500.Json;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace SupaAttack500
 {
@@ -12,6 +6,7 @@ namespace SupaAttack500
     {
         //  Prop för Path till PlayerStats.json
         public static string Path { get; set; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PlayerStats.json");
+
         /// <summary>
         /// Metod för att initiera Json klassen.
         /// </summary>
@@ -31,6 +26,7 @@ namespace SupaAttack500
         /// </summary>
         /// <returns>Returnerar en lista av scores</returns>
         public List<Score> GetScore() => JsonConvert.DeserializeObject<List<Score>>(File.ReadAllText(Path));
+
         /// <summary>
         /// Metod för att spara score till sparfilen.
         /// </summary>
@@ -48,6 +44,7 @@ namespace SupaAttack500
             attackDamage = player.AttackDamage;
             strength = player.Strength;
             toughness = player.Toughness;
+
             //  Lägger till score i listan
             scores.Add(new Score()
             {
@@ -68,6 +65,7 @@ namespace SupaAttack500
             //  Skriver nya infon till sparfilen
             File.WriteAllText(Path, jsonInput);
         }
+
         /// <summary>
         /// Metod för att presentera HiScore meny
         /// </summary>
@@ -102,6 +100,7 @@ namespace SupaAttack500
                         Program.jsonconfig.SaveScore(name, level, experiencePoints, gold, healthPoints, attackDamage, strength, toughness, player);
                         hiScoreMenu = false;
                         break;
+
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
                         hiScoreMenu = false;
@@ -109,6 +108,7 @@ namespace SupaAttack500
                 }
             }
         }
+
         public void LoadScore(Player player)
         {
             if (File.Exists(Path))
@@ -127,11 +127,10 @@ namespace SupaAttack500
                     else if (hiScoreListan.Count < 46 && hiScoreListan.Count > 30) { totalPages = 3; }
                     if (hiScoreListan.Count > 15)
                     {
-                        
                         var score = hiScoreListan;
-                        for (int i = 0+(15*(page-1)); i < page * 15; i++)
+                        for (int i = 0 + (15 * (page - 1)); i < page * 15; i++)
                         {
-                            if (i > hiScoreListan.Count-1) { break; }
+                            if (i > hiScoreListan.Count - 1) { break; }
                             Console.WriteLine("-------------------------------------------------------------");
                             Console.WriteLine($"{i + 1}|Name: {score[i].Name}\t\tLevel: {score[i].Level}\tGold: {score[i].Gold}|");
                         }
@@ -143,13 +142,15 @@ namespace SupaAttack500
                                 if (page > 1) { page--; break; }
                                 else
                                     break;
+
                             case ConsoleKey.X:
                                 if (page < totalPages) { page++; break; }
                                 break;
+
                             case ConsoleKey.L:
                                 while (true)
                                 {
-                                    Console.SetCursorPosition(0, 38);  Console.WriteLine($"Please select a Save to Import (0 to go back)                                                                                    ");
+                                    Console.SetCursorPosition(0, 38); Console.WriteLine($"Please select a Save to Import (0 to go back)                                                                                    ");
                                     int y = 0;
                                     int.TryParse(Console.ReadLine(), out y);
                                     if (y > 0 && y <= hiScoreListan.Count)
@@ -178,6 +179,7 @@ namespace SupaAttack500
                                     }
                                 }
                                 break;
+
                             case ConsoleKey.D:
                                 while (true)
                                 {
@@ -207,14 +209,15 @@ namespace SupaAttack500
                                 }
 
                                 break;
+
                             case ConsoleKey.Escape:
                                 loadSaveMenu = false;
                                 break;
+
                             default:
                                 break;
                         }
                     }
-
                     else if (hiScoreListan.Count > 0)
                     {
                         while (true)
@@ -225,36 +228,77 @@ namespace SupaAttack500
                                 x++;
                                 Console.WriteLine("-------------------------------------------------------------");
                                 Console.WriteLine($"{x}|Name: {score.Name}\t\tLevel: {score.Level}\tGold: {score.Gold}|");
-                                Thread.Sleep(100);
                             }
-                            Console.WriteLine("");
-                            Console.WriteLine($"Please select a Save to Import (0 to go back to menu)");
-                            int y = 0;
-                            int.TryParse(Console.ReadLine(), out y);
-                            if (y > 0 && y <= hiScoreListan.Count)
+                            Console.SetCursorPosition(0, 38); Console.WriteLine($"Press L = Load Score\tPress D = Delete Score");
+                            switch (Console.ReadKey().Key)
                             {
-                                player.Name = hiScoreListan[y - 1].Name;
-                                player.Level = hiScoreListan[y - 1].Level;
-                                player.ExperiencePoints = hiScoreListan[y - 1].ExperiencePoints;
-                                player.Gold = hiScoreListan[y - 1].Gold;
-                                player.HealthPoints = hiScoreListan[y - 1].HealthPoints;
-                                player.AttackDamage = hiScoreListan[y - 1].AttackDamage;
-                                player.Strength = hiScoreListan[y - 1].Strength;
-                                player.Toughness = hiScoreListan[y - 1].Toughness;
+                                case ConsoleKey.L:
+                                    while (true)
+                                    {
+                                        Console.SetCursorPosition(0, 38); Console.WriteLine($"Please select a Save to Import (0 to go back)                                                                                    ");
+                                        int y = 0;
+                                        int.TryParse(Console.ReadLine(), out y);
+                                        if (y > 0 && y <= hiScoreListan.Count)
+                                        {
+                                            player.Name = hiScoreListan[y - 1].Name;
+                                            player.Level = hiScoreListan[y - 1].Level;
+                                            player.ExperiencePoints = hiScoreListan[y - 1].ExperiencePoints;
+                                            player.Gold = hiScoreListan[y - 1].Gold;
+                                            player.HealthPoints = hiScoreListan[y - 1].HealthPoints;
+                                            player.AttackDamage = hiScoreListan[y - 1].AttackDamage;
+                                            player.Strength = hiScoreListan[y - 1].Strength;
+                                            player.Toughness = hiScoreListan[y - 1].Toughness;
 
-                                Console.Clear();
-                                break;
+                                            Console.Clear();
+                                            break;
+                                        }
+                                        else if (y == 0)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.Clear();
+                                            Visuals.DisplayStats(player);
+                                            Console.WriteLine($"Pick a valid number!");
+                                        }
+                                    }
+                                        break;
+                                case ConsoleKey.D:
+                                    while (true)
+                                    {
+                                        Console.SetCursorPosition(0, 38); Console.WriteLine($"Please select a Save to Delete (0 to go back)                                                                                    ");
+                                        int y = 0;
+                                        int.TryParse(Console.ReadLine(), out y);
+                                        if (y > 0 && y <= hiScoreListan.Count)
+                                        {
+                                            hiScoreListan.RemoveAt(y - 1);
+                                            hiScoreListan = hiScoreListan.OrderByDescending(x => x.Level).ToList();
+                                            var jsonInput = JsonConvert.SerializeObject(hiScoreListan);
+                                            File.WriteAllText(Path, jsonInput);
+                                            Console.Clear();
+                                            break;
+                                        }
+                                        else if (y == 0)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.Clear();
+                                            Visuals.DisplayStats(player);
+                                            Console.WriteLine($"Pick a valid number!");
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                case ConsoleKey.Escape:
+                                    loadSaveMenu = false;
+                                    break;
+                                default:
+                                    break;
                             }
-                            else if (y == 0)
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                Console.Clear();
-                                Visuals.DisplayStats(player);
-                                Console.WriteLine($"Pick a valid number!");
-                            }
+                            break;
                         }
                     }
                     else
@@ -267,7 +311,6 @@ namespace SupaAttack500
                 }
             }
         }
-
 
         /// <summary>
         /// Score modell
