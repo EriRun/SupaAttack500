@@ -13,7 +13,7 @@ namespace SupaAttack500
                 //  Music source:
                 //  https://www.youtube.com/watch?v=EtZ2m2Zm3vY&ab_channel=LuKremBo
                 soundPlayer.Load();
-                //soundPlayer.PlayLooping();
+                soundPlayer.PlayLooping();
                 Console.SetWindowSize(130, 40);
                 Console.SetBufferSize(130, 40);
             }
