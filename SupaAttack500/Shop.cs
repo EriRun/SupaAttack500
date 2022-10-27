@@ -1,9 +1,11 @@
 ﻿using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SupaAttack500
 {
     internal class Shop
     {
+        public bool shopping { get; set; } = true;
         private static void ShopSeed(Player player)
         {
             Shop shop = new();
@@ -16,15 +18,16 @@ namespace SupaAttack500
             items.Add(new Item("Moscow Mule", 5, 25, "Toughness"));
             items.Add(new Item("Hot n' Sweet", 1000, 1, "Strength"));
 
-            bool shopping = true;
-            while (shopping)
+            shop.shopping = true;
+            while (shop.shopping)
             {
                 Visuals.DisplayStats(player);
                 DisplayShopItems(items);
-                shop.ShopSwitch(player, items, shopping);
+                shop.ShopSwitch(player, items,shop);
+                Console.WriteLine(shop.shopping);
             }
         }
-        public bool ShopSwitch(Player player, List<Item> items, bool shopping)
+        public void ShopSwitch(Player player, List<Item> items, Shop shop)
         {
             switch (Console.ReadKey().Key)
             {
@@ -112,8 +115,8 @@ namespace SupaAttack500
                     break;
 
                 case ConsoleKey.Escape:
-                    shopping = false;
                     Console.Clear();
+                    shop.shopping = false;
                     break;
 
                 default:
@@ -121,8 +124,6 @@ namespace SupaAttack500
                     Visuals.DisplayStats(player);
                     break;
             }
-
-            return shopping;
         }
 
         public static void DisplayShopItems(List<Item> items)
