@@ -1,4 +1,6 @@
-﻿namespace SupaAttack500
+﻿using System.Numerics;
+
+namespace SupaAttack500
 {
     public class Visuals
     {
@@ -29,7 +31,7 @@
             Console.SetCursorPosition(20, 15); Console.WriteLine("*---------------------------*                *---------------------------*");
         }
 
-        public static string DrawLogo()
+        public static void DrawLogo()
         {
             string[] Logo = new string[]
             {
@@ -44,7 +46,6 @@
                 Console.SetCursorPosition(0, i); Console.WriteLine(Logo[i]);
             }
 
-            return null;
         }
 
         public static void WinScreen(Player player)
@@ -79,6 +80,10 @@
             Console.SetCursorPosition(0, 36); Console.WriteLine("Congratulations! You reached level 10! You won!");
             Console.WriteLine("Would you like to save your score?");
             Console.WriteLine("Press Y = Save Score\tPress N = Exit Game");
+            WinScreenSwitch(player);
+        }
+        public static void WinScreenSwitch(Player player)
+        {
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.Y:
@@ -91,7 +96,6 @@
                     var strength = player.Strength;
                     var toughness = player.Toughness;
                     name = player.Name;
-                    var playerInventory = Player.PlayerInventory;
                     Program.jsonconfig.SaveScore(name, level, experiencePoints, gold, healthPoints, attackDamage, strength, toughness, player);
                     Environment.Exit(0);
                     break;

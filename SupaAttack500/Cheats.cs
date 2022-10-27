@@ -4,8 +4,6 @@
     {
         public static void Menu(Player player)
         {
-            //while (true)
-            //{
             Console.Clear();
             Visuals.DisplayStats(player);
             Console.WriteLine($"Welcome, {player.Name}, to the Secret Cheat Menu!\n" +
@@ -19,7 +17,7 @@
             else if (i == 1337)
             {
                 player.HealthPoints = 10000;
-            }
+               }
             }
         }
     }

@@ -113,9 +113,5 @@
                 if (player.HealthPoints <= 100 + (player.Level * 10)) { player.HealthPoints = 100 + (player.Level * 10); }
             }
         }
-        public static void Battle()
-        {
-
-        }
     }
 }

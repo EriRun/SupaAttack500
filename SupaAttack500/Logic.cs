@@ -5,17 +5,28 @@ namespace SupaAttack500
     public class Logic
 
     {
+        public static void Game()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer soundPlayer = new SoundPlayer("Biscuit.wav");
+                //  Music source:
+                //  https://www.youtube.com/watch?v=EtZ2m2Zm3vY&ab_channel=LuKremBo
+                soundPlayer.Load();
+                soundPlayer.PlayLooping();
+                Console.SetWindowSize(130, 40);
+                Console.SetBufferSize(130, 40);
+            }
+            Console.Title = "SupaAttack500!";
+            Player player = new Player("", 1, 0, 100, 14, 0, 0, 0);
+            Visuals.DrawLogo();
+            Menu(player);
+        }
         public static void Menu(Player player)
         {
             Console.WriteLine("Please enter your name:");
             player.Name = Console.ReadLine();
             bool MenuActive = true;
-            int level = player.Level;
-            int gold = player.Gold;
-            int healthPoints = player.HealthPoints;
-            int attackDamage = player.AttackDamage;
-            int strength = player.Strength;
-            int toughness = player.Toughness;
             while (MenuActive)
             {
                 if (player.Level == 10)
@@ -25,6 +36,14 @@ namespace SupaAttack500
                 Console.Clear();
                 Visuals.DisplayStats(player);
                 Visuals.MenuOptions();
+                MenuSwitch(player);
+            }
+        }
+
+        public static void MenuSwitch(Player player)
+        {
+            int level = player.Level;
+            int gold = player.Gold;
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.D1:
@@ -55,11 +74,7 @@ namespace SupaAttack500
                     case ConsoleKey.Tab:
                         Cheats.Menu(player);
                         break;
-
-                    default:
-                        break;
                 }
-            }
         }
 
         public static void GameRound(Player player)
@@ -73,7 +88,7 @@ namespace SupaAttack500
                 Console.WriteLine("You enter the bar... Nothing happens..");
                 Console.ReadLine();
             }
-            else if (Adventure == 2 || Adventure == 4 || Adventure == 6 || Adventure == 8)
+            else if (Adventure >= 2 || Adventure <= 5)
             {
                 Console.Clear();
                 Visuals.DisplayStats(player);
@@ -91,22 +106,5 @@ namespace SupaAttack500
             }
         }
 
-        public static void Game()
-        {
-            if (OperatingSystem.IsWindows())
-            {
-                SoundPlayer soundPlayer = new SoundPlayer("Biscuit.wav");
-                //  Music source:
-                //  https://www.youtube.com/watch?v=EtZ2m2Zm3vY&ab_channel=LuKremBo
-                soundPlayer.Load();
-                soundPlayer.PlayLooping();
-            }
-            Console.Title = "SupaAttack500!";
-            Console.SetWindowSize(130, 40);
-            Console.SetBufferSize(130, 40);
-            Player player = new Player("", 1, 0, 100, 14, 0, 0, 0);
-            Visuals.DrawLogo();
-            Menu(player);
-        }
     }
 }
