@@ -2,6 +2,8 @@
 {
     internal class Cheats
     {
+        #region Public Methods
+
         public static void Menu(Player player)
         {
             Console.Clear();
@@ -17,7 +19,9 @@
             else if (i == 1337)
             {
                 player.HealthPoints = 10000;
-               }
             }
         }
+
+        #endregion Public Methods
     }
+}

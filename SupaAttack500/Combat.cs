@@ -2,6 +2,8 @@
 {
     internal class Combat
     {
+        #region Public Methods
+
         public static void KrogvaktFight(Player player)
         {
             Krogvakt krogvakt = new Krogvakt("Krogvakt", 1, 34, 50, 9, (19 + (player.Level * 2)));
@@ -113,5 +115,7 @@
                 if (player.HealthPoints <= 100 + (player.Level * 10)) { player.HealthPoints = 100 + (player.Level * 10); }
             }
         }
+
+        #endregion Public Methods
     }
 }

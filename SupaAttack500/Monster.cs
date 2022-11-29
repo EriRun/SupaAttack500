@@ -2,6 +2,10 @@
 {
     public class Monster
     {
-        public string Name { get; set; }
+        #region Public Properties
+
+        public string Name { get; set; } = "";
+
+        #endregion Public Properties
     }
 }

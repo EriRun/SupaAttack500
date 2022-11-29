@@ -1,9 +1,9 @@
-﻿using System.Numerics;
-
-namespace SupaAttack500
+﻿namespace SupaAttack500
 {
     public class Visuals
     {
+        #region Public Methods
+
         public static void DisplayStats(Player player)
         {
             Console.SetCursorPosition(0, 0); for (int i = 0; i < Console.WindowWidth; i++) { Console.Write("-"); }
@@ -21,16 +21,6 @@ namespace SupaAttack500
             Console.SetCursorPosition(0, 2); for (int i = 0; i < Console.WindowWidth; i++) { Console.Write("-"); }
         }
 
-        public static void MenuOptions()
-        {
-            Console.SetCursorPosition(7, 8); Console.WriteLine("*---------------------------*         *---------------------------*         *---------------------------*");
-            Console.SetCursorPosition(7, 9); Console.WriteLine("|   Press 1 to Start Game   |         |   Press 2 to Load Game    |         |  Press 3 to Save Game     |");
-            Console.SetCursorPosition(7, 10); Console.WriteLine("*---------------------------*         *---------------------------*         *---------------------------*");
-            Console.SetCursorPosition(20, 13); Console.WriteLine("*---------------------------*                *---------------------------*");
-            Console.SetCursorPosition(20, 14); Console.WriteLine("|   Press 4 to Go To Shop   |                |   Press 5 to Exit Game    | ");
-            Console.SetCursorPosition(20, 15); Console.WriteLine("*---------------------------*                *---------------------------*");
-        }
-
         public static void DrawLogo()
         {
             string[] Logo = new string[]
@@ -45,9 +35,17 @@ namespace SupaAttack500
             {
                 Console.SetCursorPosition(0, i); Console.WriteLine(Logo[i]);
             }
-
         }
 
+        public static void MenuOptions()
+        {
+            Console.SetCursorPosition(7, 8); Console.WriteLine("*---------------------------*         *---------------------------*         *---------------------------*");
+            Console.SetCursorPosition(7, 9); Console.WriteLine("|   Press 1 to Start Game   |         |   Press 2 to Load Game    |         |  Press 3 to Save Game     |");
+            Console.SetCursorPosition(7, 10); Console.WriteLine("*---------------------------*         *---------------------------*         *---------------------------*");
+            Console.SetCursorPosition(20, 13); Console.WriteLine("*---------------------------*                *---------------------------*");
+            Console.SetCursorPosition(20, 14); Console.WriteLine("|   Press 4 to Go To Shop   |                |   Press 5 to Exit Game    | ");
+            Console.SetCursorPosition(20, 15); Console.WriteLine("*---------------------------*                *---------------------------*");
+        }
         public static void WinScreen(Player player)
         {
             Console.Clear();
@@ -82,6 +80,7 @@ namespace SupaAttack500
             Console.WriteLine("Press Y = Save Score\tPress N = Exit Game");
             WinScreenSwitch(player);
         }
+
         public static void WinScreenSwitch(Player player)
         {
             switch (Console.ReadKey().Key)
@@ -109,5 +108,7 @@ namespace SupaAttack500
                     break;
             }
         }
+
+        #endregion Public Methods
     }
 }

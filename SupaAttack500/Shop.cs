@@ -1,32 +1,24 @@
-﻿using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
-
-namespace SupaAttack500
+﻿namespace SupaAttack500
 {
     internal class Shop
     {
-        public bool shopping { get; set; } = true;
-        private static void ShopSeed(Player player)
-        {
-            Shop shop = new();
-            Console.Clear();
-            Visuals.DisplayStats(player);
-            List<Item> items = new List<Item>();
-            items.Add(new Item("Bärs", 25, 17, "Health"));
-            items.Add(new Item("Jäger-Vodka", 150, 500, "Strength"));
-            items.Add(new Item("Suröl", 7, 75, "Strength"));
-            items.Add(new Item("Moscow Mule", 5, 25, "Toughness"));
-            items.Add(new Item("Hot n' Sweet", 1000, 1, "Strength"));
+        #region Public Properties
 
-            shop.shopping = true;
-            while (shop.shopping)
+        public bool shopping { get; set; } = true;
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        public static void DisplayShopItems(List<Item> items)
+        {
+            foreach (var item in items)
             {
-                Visuals.DisplayStats(player);
-                DisplayShopItems(items);
-                shop.ShopSwitch(player, items,shop);
-                Console.WriteLine(shop.shopping);
+                Console.Write($"Item: {item.Name}\n"); Console.Write($"Effect: {item.Effect} {item.EffectDescription} \n"); Console.Write($"Costs: {item.Cost}\n");
+                Console.WriteLine("\n");
             }
         }
+
         public void ShopSwitch(Player player, List<Item> items, Shop shop)
         {
             switch (Console.ReadKey().Key)
@@ -126,18 +118,41 @@ namespace SupaAttack500
             }
         }
 
-        public static void DisplayShopItems(List<Item> items)
-        {
-            foreach (var item in items)
-            {
-                Console.Write($"Item: {item.Name}\n"); Console.Write($"Effect: {item.Effect} {item.EffectDescription} \n"); Console.Write($"Costs: {item.Cost}\n");
-                Console.WriteLine("\n");
-            }
-        }
+        #endregion Public Methods
+
+        #region Internal Methods
 
         internal static void ShopKeep(Player player)
         {
             ShopSeed(player);
         }
+
+        #endregion Internal Methods
+
+        #region Private Methods
+
+        private static void ShopSeed(Player player)
+        {
+            Shop shop = new();
+            Console.Clear();
+            Visuals.DisplayStats(player);
+            List<Item> items = new List<Item>();
+            items.Add(new Item("Bärs", 25, 17, "Health"));
+            items.Add(new Item("Jäger-Vodka", 150, 500, "Strength"));
+            items.Add(new Item("Suröl", 7, 75, "Strength"));
+            items.Add(new Item("Moscow Mule", 5, 25, "Toughness"));
+            items.Add(new Item("Hot n' Sweet", 1000, 1, "Strength"));
+
+            shop.shopping = true;
+            while (shop.shopping)
+            {
+                Visuals.DisplayStats(player);
+                DisplayShopItems(items);
+                shop.ShopSwitch(player, items, shop);
+                Console.WriteLine(shop.shopping);
+            }
+        }
+
+        #endregion Private Methods
     }
 }

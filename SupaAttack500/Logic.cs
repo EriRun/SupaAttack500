@@ -2,9 +2,11 @@
 
 namespace SupaAttack500
 {
-    public class Logic
+    public static class Logic
 
     {
+        #region Public Methods
+
         public static void Game()
         {
             if (OperatingSystem.IsWindows())
@@ -21,60 +23,6 @@ namespace SupaAttack500
             Player player = new Player("", 1, 0, 100, 14, 0, 0, 0);
             Visuals.DrawLogo();
             Menu(player);
-        }
-        public static void Menu(Player player)
-        {
-            Console.WriteLine("Please enter your name:");
-            player.Name = Console.ReadLine();
-            bool MenuActive = true;
-            while (MenuActive)
-            {
-                if (player.Level == 10)
-                {
-                    Visuals.WinScreen(player);
-                }
-                Console.Clear();
-                Visuals.DisplayStats(player);
-                Visuals.MenuOptions();
-                MenuSwitch(player);
-            }
-        }
-
-        public static void MenuSwitch(Player player)
-        {
-            int level = player.Level;
-            int gold = player.Gold;
-                switch (Console.ReadKey().Key)
-                {
-                    case ConsoleKey.D1:
-                    case ConsoleKey.NumPad1:
-                        GameRound(player);
-                        break;
-
-                    case ConsoleKey.D2:
-                    case ConsoleKey.NumPad2:
-                        Program.jsonconfig.LoadScore(player);
-                        break;
-
-                    case ConsoleKey.D3:
-                    case ConsoleKey.NumPad3:
-                        Program.jsonconfig.HiScore(level, gold, player);
-                        break;
-
-                    case ConsoleKey.D4:
-                    case ConsoleKey.NumPad4:
-                        Shop.ShopKeep(player);
-                        break;
-
-                    case ConsoleKey.D5:
-                    case ConsoleKey.NumPad5:
-                        Environment.Exit(0);
-                        break;
-
-                    case ConsoleKey.Tab:
-                        Cheats.Menu(player);
-                        break;
-                }
         }
 
         public static void GameRound(Player player)
@@ -106,5 +54,61 @@ namespace SupaAttack500
             }
         }
 
+        public static void Menu(Player player)
+        {
+            Console.WriteLine("Please enter your name:");
+            player.Name = Console.ReadLine();
+            bool MenuActive = true;
+            while (MenuActive)
+            {
+                if (player.Level == 10)
+                {
+                    Visuals.WinScreen(player);
+                }
+                Console.Clear();
+                Visuals.DisplayStats(player);
+                Visuals.MenuOptions();
+                MenuSwitch(player);
+            }
+        }
+
+        public static void MenuSwitch(Player player)
+        {
+            int level = player.Level;
+            int gold = player.Gold;
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.D1:
+                case ConsoleKey.NumPad1:
+                    GameRound(player);
+                    break;
+
+                case ConsoleKey.D2:
+                case ConsoleKey.NumPad2:
+                    Program.jsonconfig.LoadScore(player);
+                    break;
+
+                case ConsoleKey.D3:
+                case ConsoleKey.NumPad3:
+                    Program.jsonconfig.HiScore(level, gold, player);
+                    break;
+
+                case ConsoleKey.D4:
+                case ConsoleKey.NumPad4:
+                    Shop.ShopKeep(player);
+                    break;
+
+                case ConsoleKey.D5:
+                case ConsoleKey.NumPad5:
+                    Environment.Exit(0);
+                    break;
+
+                case ConsoleKey.Tab:
+                    Cheats.Menu(player);
+                    break;
+            }
+        }
+
+        #endregion Public Methods
     }
 }

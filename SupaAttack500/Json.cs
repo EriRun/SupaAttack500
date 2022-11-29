@@ -4,8 +4,7 @@ namespace SupaAttack500
 {
     public class Json
     {
-        //  Prop för Path till PlayerStats.json
-        public static string Path { get; set; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PlayerStats.json");
+        #region Public Constructors
 
         /// <summary>
         /// Metod för att initiera Json klassen.
@@ -21,50 +20,22 @@ namespace SupaAttack500
             }
         }
 
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        //  Prop för Path till PlayerStats.json
+        public static string Path { get; set; } = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PlayerStats.json");
+
+        #endregion Public Properties
+
+        #region Public Methods
+
         /// <summary>
         /// GetScore Lista
         /// </summary>
         /// <returns>Returnerar en lista av scores</returns>
-        public List<Score> GetScore() => JsonConvert.DeserializeObject<List<Score>>(File.ReadAllText(Path));
-
-        /// <summary>
-        /// Metod för att spara score till sparfilen.
-        /// </summary>
-        /// <param name="name">Player name</param>
-        /// <param name="pix">Player pix</param>
-        public void SaveScore(string name, int level, int experiencePoints, int gold, int healthPoints, int attackDamage, int strength, int toughness, Player player)
-        {
-            //  Importerar HiScore listan till variabel "scores"
-            var scores = GetScore();
-            name = player.Name;
-            level = player.Level;
-            experiencePoints = player.ExperiencePoints;
-            gold = player.Gold;
-            healthPoints = player.HealthPoints;
-            attackDamage = player.AttackDamage;
-            strength = player.Strength;
-            toughness = player.Toughness;
-
-            //  Lägger till score i listan
-            scores.Add(new Score()
-            {
-                Name = name,
-                Level = level,
-                ExperiencePoints = experiencePoints,
-                Gold = gold,
-                HealthPoints = healthPoints,
-                AttackDamage = attackDamage,
-                Strength = strength,
-                Toughness = toughness
-            });
-            //  Sorterar listan, högst till lägst.
-            scores = scores.OrderByDescending(x => x.Level).ToList();
-
-            //  Skapar en ny variabel där scores serializas till json format.
-            var jsonInput = JsonConvert.SerializeObject(scores);
-            //  Skriver nya infon till sparfilen
-            File.WriteAllText(Path, jsonInput);
-        }
+        public List<Score>? GetScore() => JsonConvert.DeserializeObject<List<Score>>(File.ReadAllText(Path));
 
         /// <summary>
         /// Metod för att presentera HiScore meny
@@ -121,11 +92,11 @@ namespace SupaAttack500
                     Console.Clear();
                     Visuals.DisplayStats(player);
                     var hiScoreListan = GetScore();
-                    hiScoreListan = hiScoreListan.OrderByDescending(x => x.Level).ToList();
-                    if (hiScoreListan.Count < 16) { totalPages = 1; }
-                    else if (hiScoreListan.Count < 31 && hiScoreListan.Count > 15) { totalPages = 2; }
-                    else if (hiScoreListan.Count < 46 && hiScoreListan.Count > 30) { totalPages = 3; }
-                    if (hiScoreListan.Count > 15)
+                    hiScoreListan = hiScoreListan?.OrderByDescending(x => x.Level).ToList();
+                    if (hiScoreListan?.Count < 16) { totalPages = 1; }
+                    else if (hiScoreListan?.Count < 31 && hiScoreListan.Count > 15) { totalPages = 2; }
+                    else if (hiScoreListan?.Count < 46 && hiScoreListan.Count > 30) { totalPages = 3; }
+                    if (hiScoreListan?.Count > 15)
                     {
                         var score = hiScoreListan;
                         for (int i = 0 + (15 * (page - 1)); i < page * 15; i++)
@@ -218,7 +189,7 @@ namespace SupaAttack500
                                 break;
                         }
                     }
-                    else if (hiScoreListan.Count > 0)
+                    else if (hiScoreListan?.Count > 0)
                     {
                         while (true)
                         {
@@ -263,7 +234,8 @@ namespace SupaAttack500
                                             Console.WriteLine($"Pick a valid number!");
                                         }
                                     }
-                                        break;
+                                    break;
+
                                 case ConsoleKey.D:
                                     while (true)
                                     {
@@ -292,9 +264,11 @@ namespace SupaAttack500
                                         }
                                     }
                                     break;
+
                                 case ConsoleKey.Escape:
                                     loadSaveMenu = false;
                                     break;
+
                                 default:
                                     break;
                             }
@@ -313,18 +287,67 @@ namespace SupaAttack500
         }
 
         /// <summary>
+        /// Metod för att spara score till sparfilen.
+        /// </summary>
+        /// <param name="name">Player name</param>
+        /// <param name="pix">Player pix</param>
+        public void SaveScore(string name, int level, int experiencePoints, int gold, int healthPoints, int attackDamage, int strength, int toughness, Player player)
+        {
+            //  Importerar HiScore listan till variabel "scores"
+            var scores = GetScore();
+            name = player.Name;
+            level = player.Level;
+            experiencePoints = player.ExperiencePoints;
+            gold = player.Gold;
+            healthPoints = player.HealthPoints;
+            attackDamage = player.AttackDamage;
+            strength = player.Strength;
+            toughness = player.Toughness;
+
+            //  Lägger till score i listan
+            scores?.Add(new Score()
+            {
+                Name = name,
+                Level = level,
+                ExperiencePoints = experiencePoints,
+                Gold = gold,
+                HealthPoints = healthPoints,
+                AttackDamage = attackDamage,
+                Strength = strength,
+                Toughness = toughness
+            });
+            //  Sorterar listan, högst till lägst.
+            scores = scores?.OrderByDescending(x => x.Level).ToList();
+
+            //  Skapar en ny variabel där scores serializas till json format.
+            var jsonInput = JsonConvert.SerializeObject(scores);
+            //  Skriver nya infon till sparfilen
+            File.WriteAllText(Path, jsonInput);
+        }
+
+        #endregion Public Methods
+
+        #region Public Classes
+
+        /// <summary>
         /// Score modell
         /// </summary>
         public class Score
         {
-            public string Name { get; set; }
-            public int Level { get; set; }
+            #region Public Properties
+
+            public int AttackDamage { get; set; }
             public int ExperiencePoints { get; set; }
             public int Gold { get; set; }
             public int HealthPoints { get; set; }
-            public int AttackDamage { get; set; }
+            public int Level { get; set; }
+            public string Name { get; set; } = "";
             public int Strength { get; set; }
             public int Toughness { get; set; }
+
+            #endregion Public Properties
         }
+
+        #endregion Public Classes
     }
 }
